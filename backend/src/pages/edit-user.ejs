@@ -3,26 +3,33 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Add User</title>
+        <title>
+            <% if(editing){ %>Edit User<% } else { %>Add User<% } %>
+        </title>
     </head>
     <body>
-        <h1>Add User</h1>
+        <h1><% if(editing){ %>Edit User<% } else { %>Add User<% } %></h1>
 
-        <form method="POST" action="/add-user">
+        <form method="POST" action="/<% if(editing){ %>edit-user<% } else { %>add-user<% } %>">
             <div>
                 <label>Name</label>
-                <input type="text" name="name" required />
+                <input type="text" name="name" value="<% if(editing){ %><%= user.name %><% } %>" required />
             </div>
             <div>
                 <label>Image</label>
-                <input type="text" name="image" required />
+                <input type="text" name="image" value="<% if(editing){ %><%= user.image %><% } %>" required />
             </div>
             <div>
                 <label>Description</label>
-                <input type="text" name="description" required />
+                <input type="text" name="description" value="<% if(editing){ %><%= user.description %><% } %>" required />
             </div>
+            <% if(editing){ %>
             <div>
-                <button type="submit">Add User</button>
+                <input type="hidden" name="userID" value="<%= user.id %>" />
+            </div>
+            <% } %>
+            <div>
+                <button type="submit"><% if(editing){ %>Edit User<% } else { %>Add User<% } %></button>
             </div>
         </form>
     </body>
